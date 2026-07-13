@@ -6,7 +6,7 @@ const SUBMISSIONS_PATH = "data/submissions.json";
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
 async function readJSON(pathname, fallback) {
-  const result = await get(pathname, { access: "public" });
+  const result = await get(pathname, { access: "public", useCache: false });
   if (!result || !result.stream) return fallback;
   const text = await new Response(result.stream).text();
   return text ? JSON.parse(text) : fallback;
@@ -18,6 +18,7 @@ async function writeJSON(pathname, data) {
     contentType: "application/json",
     addRandomSuffix: false,
     allowOverwrite: true,
+    cacheControlMaxAge: 0,
   });
 }
 
