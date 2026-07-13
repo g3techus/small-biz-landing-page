@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Portal | George's Web Studio</title>
+<meta name="description" content="Sign up and tell us about your business so we can build your website.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="portal.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">George's <span>Web Studio</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="btn btn-small btn-ghost" id="logoutBtn" hidden>Log out</button>
+  </div>
+</header>
+
+<main class="portal-main">
+  <div class="container portal-container">
+
+    <!-- AUTH VIEW -->
+    <section id="authView" class="portal-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Log In</button>
+        <button class="auth-tab" data-tab="signup">Sign Up</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <h2>Welcome back</h2>
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+        <p class="form-error" id="loginError" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block">Log In</button>
+      </form>
+
+      <form id="signupForm" class="auth-form" hidden>
+        <h2>Create your account</h2>
+        <p class="section-sub small">Set up a login so you can save your answers and come back anytime.</p>
+        <input type="text" name="username" placeholder="Choose a username" required minlength="3" maxlength="20" pattern="[a-zA-Z0-9_]+" title="3-20 characters: letters, numbers, underscore" autocomplete="username">
+        <input type="password" name="password" placeholder="Choose a password (min 8 characters)" required minlength="8" autocomplete="new-password">
+        <p class="form-error" id="signupError" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+      </form>
+    </section>
+
+    <!-- WIZARD VIEW -->
+    <section id="wizardView" class="portal-card" hidden>
+      <div class="progress" id="progress"></div>
+
+      <form id="wizardForm">
+        <div class="wizard-step" id="step-business">
+          <h2>Tell us about your business</h2>
+          <label>What's the name of your business?
+            <input type="text" name="businessName" required placeholder="e.g. Sunrise Café">
+          </label>
+          <label>What kind of business is it?
+            <select name="category" required>
+              <option value="" disabled selected>Choose a category</option>
+              <option value="restaurant">Restaurant / Café</option>
+              <option value="retail">Retail / Boutique</option>
+              <option value="salon">Salon / Spa</option>
+              <option value="contractor">Contractor / Trades</option>
+              <option value="professional">Professional Services / Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="wizard-step" id="step-followup">
+          <h2>A few quick follow-ups</h2>
+          <div id="followupFields"></div>
+        </div>
+
+        <div class="wizard-step" id="step-general">
+          <h2>A bit more detail</h2>
+          <label>What services does your business provide?
+            <textarea name="servicesText" rows="3" required placeholder="e.g. Coffee, pastries, catering for local events"></textarea>
+          </label>
+          <label>Who are your typical customers?
+            <input type="text" name="targetCustomers" placeholder="e.g. Local families, remote workers">
+          </label>
+          <label>Do you already have a website?
+            <select name="existingWebsite">
+              <option value="no">No</option>
+              <option value="yes">Yes, but it needs an upgrade</option>
+            </select>
+          </label>
+          <label>Domain name in mind? (optional)
+            <input type="text" name="domain" placeholder="e.g. sunrisecafe.com">
+          </label>
+          <label>What's your timeline?
+            <select name="timeline">
+              <option value="asap">As soon as possible</option>
+              <option value="2-4weeks">2-4 weeks</option>
+              <option value="1-2months">1-2 months</option>
+              <option value="flexible">Flexible</option>
+            </select>
+          </label>
+          <label>What's your budget range?
+            <select name="budget">
+              <option value="under1000">Under $1,000</option>
+              <option value="1000-2500">$1,000 - $2,500</option>
+              <option value="2500-5000">$2,500 - $5,000</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="wizard-step" id="step-images">
+          <h2>Logo &amp; photos</h2>
+          <p class="section-sub small">Optional, but it helps us design something that fits your brand.</p>
+
+          <div class="upload-field">
+            <label class="upload-label">Logo (optional)</label>
+            <input type="file" id="logoInput" accept="image/*">
+            <div class="thumb-row" id="logoThumb"></div>
+          </div>
+
+          <div class="upload-field">
+            <label class="upload-label">Photos of your business, products, or work (optional, up to 6)</label>
+            <input type="file" id="photosInput" accept="image/*" multiple>
+            <div class="thumb-row" id="photosThumb"></div>
+          </div>
+          <p class="form-hint">Images must be under 4MB each.</p>
+          <p class="form-error" id="uploadError" hidden></p>
+        </div>
+
+        <div class="wizard-step" id="step-review">
+          <h2>Review &amp; submit</h2>
+          <div id="reviewSummary" class="review-summary"></div>
+        </div>
+
+        <div class="wizard-actions">
+          <button type="button" class="btn btn-ghost" id="backBtn">Back</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" hidden>Submit</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- DONE VIEW -->
+    <section id="doneView" class="portal-card" hidden>
+      <h2>Thanks — we've got what we need!</h2>
+      <p>We'll follow up shortly about your website. You can edit your answers anytime.</p>
+      <button class="btn btn-ghost" id="editBtn">Edit my answers</button>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> George's Web Studio. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="portal.js"></script>
+</body>
+</html>
