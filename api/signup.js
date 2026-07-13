@@ -1,4 +1,4 @@
-const { getUsers, saveUsers, hashPassword, setSessionCookie, USERNAME_RE } = require("./_lib");
+const { getUser, saveUser, hashPassword, setSessionCookie, USERNAME_RE } = require("./_lib");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -19,19 +19,18 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const users = await getUsers();
   const key = username.toLowerCase();
-  if (users[key]) {
+  const existing = await getUser(key);
+  if (existing) {
     res.status(409).json({ error: "That username is already taken" });
     return;
   }
 
-  users[key] = {
+  await saveUser(key, {
     username,
     passwordHash: hashPassword(password),
     createdAt: new Date().toISOString(),
-  };
-  await saveUsers(users);
+  });
 
   setSessionCookie(res, key);
   res.status(200).json({ ok: true, username });

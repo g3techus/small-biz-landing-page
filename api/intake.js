@@ -1,4 +1,4 @@
-const { getSessionUser, getSubmissions, saveSubmissions } = require("./_lib");
+const { getSessionUser, getSubmission, saveSubmission } = require("./_lib");
 
 module.exports = async (req, res) => {
   const username = getSessionUser(req);
@@ -8,8 +8,8 @@ module.exports = async (req, res) => {
   }
 
   if (req.method === "GET") {
-    const submissions = await getSubmissions();
-    res.status(200).json({ submission: submissions[username] || null });
+    const submission = await getSubmission(username);
+    res.status(200).json({ submission: submission || null });
     return;
   }
 
@@ -20,13 +20,11 @@ module.exports = async (req, res) => {
       return;
     }
 
-    const submissions = await getSubmissions();
-    submissions[username] = {
+    await saveSubmission(username, {
       answers,
       images: Array.isArray(images) ? images : [],
       updatedAt: new Date().toISOString(),
-    };
-    await saveSubmissions(submissions);
+    });
 
     res.status(200).json({ ok: true });
     return;

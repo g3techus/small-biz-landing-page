@@ -1,4 +1,4 @@
-const { getSessionUser, getUsers } = require("./_lib");
+const { getSessionUser, getUser } = require("./_lib");
 
 module.exports = async (req, res) => {
   const key = getSessionUser(req);
@@ -6,8 +6,7 @@ module.exports = async (req, res) => {
     res.status(401).json({ error: "Not signed in" });
     return;
   }
-  const users = await getUsers();
-  const user = users[key];
+  const user = await getUser(key);
   if (!user) {
     res.status(401).json({ error: "Not signed in" });
     return;

@@ -1,4 +1,4 @@
-const { getUsers, verifyPassword, setSessionCookie } = require("./_lib");
+const { getUser, verifyPassword, setSessionCookie } = require("./_lib");
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -12,9 +12,8 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const users = await getUsers();
   const key = username.toLowerCase();
-  const user = users[key];
+  const user = await getUser(key);
 
   if (!user || !verifyPassword(password, user.passwordHash)) {
     res.status(401).json({ error: "Invalid username or password" });

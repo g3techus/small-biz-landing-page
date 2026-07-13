@@ -1,38 +1,20 @@
 const crypto = require("crypto");
-const { put, get } = require("@vercel/blob");
+const { Redis } = require("@upstash/redis");
 
-const USERS_PATH = "data/users.json";
-const SUBMISSIONS_PATH = "data/submissions.json";
+const redis = Redis.fromEnv();
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-async function readJSON(pathname, fallback) {
-  const result = await get(pathname, { access: "public", useCache: false });
-  if (!result || !result.stream) return fallback;
-  const text = await new Response(result.stream).text();
-  return text ? JSON.parse(text) : fallback;
+async function getUser(key) {
+  return redis.get(`user:${key}`);
 }
-
-async function writeJSON(pathname, data) {
-  await put(pathname, JSON.stringify(data), {
-    access: "public",
-    contentType: "application/json",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    cacheControlMaxAge: 0,
-  });
+async function saveUser(key, user) {
+  await redis.set(`user:${key}`, user);
 }
-
-async function getUsers() {
-  return readJSON(USERS_PATH, {});
+async function getSubmission(username) {
+  return redis.get(`submission:${username}`);
 }
-async function saveUsers(users) {
-  return writeJSON(USERS_PATH, users);
-}
-async function getSubmissions() {
-  return readJSON(SUBMISSIONS_PATH, {});
-}
-async function saveSubmissions(subs) {
-  return writeJSON(SUBMISSIONS_PATH, subs);
+async function saveSubmission(username, submission) {
+  await redis.set(`submission:${username}`, submission);
 }
 
 function hashPassword(password) {
@@ -100,10 +82,10 @@ function clearSessionCookie(res) {
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,20}$/;
 
 module.exports = {
-  getUsers,
-  saveUsers,
-  getSubmissions,
-  saveSubmissions,
+  getUser,
+  saveUser,
+  getSubmission,
+  saveSubmission,
   hashPassword,
   verifyPassword,
   getSessionUser,
