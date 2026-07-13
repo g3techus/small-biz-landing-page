@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>George's Web Studio | Websites for Small Businesses</title>
 <meta name="description" content="Affordable, professional websites for small businesses. Fast turnaround, mobile-friendly design, and ongoing support.">
+<script>
+(function () {
+  var saved = localStorage.getItem("theme");
+  var theme = saved === "light" || saved === "dark"
+    ? saved
+    : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+})();
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +29,7 @@
       <a href="portal.html">Client Portal</a>
     </nav>
     <a href="portal.html" class="btn btn-small nav-cta">Get Started</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
   </div>
 </header>
@@ -189,5 +199,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="theme.js"></script>
 </body>
 </html>

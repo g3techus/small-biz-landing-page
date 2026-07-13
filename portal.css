@@ -8,7 +8,7 @@
 }
 
 .portal-card {
-  background: var(--white);
+  background: var(--surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 36px;
@@ -30,7 +30,7 @@
   display: flex;
   gap: 8px;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(16,35,62,0.08);
+  border-bottom: 1px solid var(--divider);
 }
 .auth-tab {
   background: none;
@@ -52,7 +52,9 @@
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
-  border: 1px solid #d7dee5;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
   font-family: inherit;
   font-size: 0.95rem;
   margin-bottom: 12px;
@@ -79,7 +81,7 @@
   flex: 1;
   height: 6px;
   border-radius: 999px;
-  background: rgba(16,35,62,0.1);
+  background: var(--track);
 }
 .progress span.done { background: var(--teal); }
 .progress span.current { background: var(--navy); }
@@ -102,7 +104,8 @@
   margin-top: 6px;
   padding: 12px 14px;
   border-radius: 8px;
-  border: 1px solid #d7dee5;
+  border: 1px solid var(--border);
+  background: var(--surface);
   font-family: inherit;
   font-size: 0.95rem;
   font-weight: 400;
@@ -200,3 +203,5 @@
 
 #doneView { text-align: center; }
 #doneView h2 { text-align: center; }
+
+:root[data-theme="dark"] .form-error { color: #ff8a80; }
