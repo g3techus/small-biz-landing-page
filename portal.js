@@ -2,27 +2,38 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 const FOLLOWUPS = {
   restaurant: [
+    { id: "cuisineType", label: "What type of cuisine or food do you serve?", type: "text" },
     { id: "menu", label: "Do you want an online menu on your site?", type: "yesno" },
     { id: "ordering", label: "Do you need online ordering or table reservations?", type: "yesno" },
+    { id: "deliveryPartners", label: "Do you use delivery partners (DoorDash, Uber Eats, etc.)?", type: "yesno" },
   ],
   retail: [
     { id: "ecommerce", label: "Do you want to sell products online (e-commerce)?", type: "yesno" },
     { id: "productCount", label: "Roughly how many products would you list?", type: "text" },
+    { id: "shipping", label: "Do you ship products to customers?", type: "yesno" },
+    { id: "paymentMethods", label: "What payment methods do you accept?", type: "text" },
   ],
   salon: [
+    { id: "servicesList", label: "What services/treatments do you offer?", type: "text" },
     { id: "booking", label: "Do you want online appointment booking?", type: "yesno" },
     { id: "staffCount", label: "How many staff members / service providers do you have?", type: "text" },
+    { id: "cancellationPolicy", label: "Do you want to show a cancellation/booking policy?", type: "yesno" },
   ],
   contractor: [
+    { id: "serviceArea", label: "What area or radius do you serve?", type: "text" },
     { id: "gallery", label: "Do you want a photo gallery of past projects?", type: "yesno" },
     { id: "quoteForm", label: 'Do you want a "Request a Quote" form?', type: "yesno" },
+    { id: "licensedInsured", label: "Are you licensed/insured and want that displayed?", type: "yesno" },
   ],
   professional: [
+    { id: "credentials", label: "What credentials/certifications should we highlight?", type: "text" },
     { id: "blog", label: "Do you want a blog or resources section?", type: "yesno" },
     { id: "consultBooking", label: "Do you want online booking for consultations?", type: "yesno" },
+    { id: "caseStudies", label: "Do you want to showcase case studies or testimonials?", type: "yesno" },
   ],
   other: [
     { id: "goal", label: "What's the main goal of your website?", type: "text" },
+    { id: "uniqueness", label: "What makes your business unique?", type: "text" },
   ],
 };
 
@@ -35,7 +46,16 @@ const CATEGORY_LABELS = {
   other: "Other",
 };
 
-const STEP_IDS = ["step-business", "step-followup", "step-general", "step-images", "step-review"];
+const STEP_IDS = [
+  "step-business",
+  "step-followup",
+  "step-audience",
+  "step-content",
+  "step-design",
+  "step-logistics",
+  "step-images",
+  "step-review",
+];
 
 const state = {
   stepIndex: 0,
@@ -219,10 +239,53 @@ els.backBtn.addEventListener("click", () => {
 function collectAnswers() {
   const data = new FormData(els.wizardForm);
   const answers = {};
-  for (const [key, value] of data.entries()) {
-    answers[key] = value;
+  for (const key of new Set(data.keys())) {
+    const values = data.getAll(key);
+    answers[key] = values.length > 1 ? values : values[0];
   }
   return answers;
+}
+
+const TIMELINE_LABELS = {
+  asap: "As soon as possible",
+  "2-4weeks": "2-4 weeks",
+  "1-2months": "1-2 months",
+  flexible: "Flexible",
+};
+const BUDGET_LABELS = {
+  under300: "Under $300",
+  "300-500": "$300 - $500",
+  "500-1000": "$500 - $1,000",
+  "1000plus": "$1,000+",
+  unsure: "Not sure yet",
+};
+const YEARS_LABELS = {
+  new: "Just starting out",
+  "1-2years": "1-2 years",
+  "3-5years": "3-5 years",
+  "5plus": "5+ years",
+};
+const CONTENT_READY_LABELS = {
+  ready: "Logo, photos, and text ready",
+  partial: "Some content ready, needs help with rest",
+  none: "Needs help creating everything",
+};
+const STYLE_LABELS = {
+  modern: "Modern & minimal",
+  bold: "Bold & colorful",
+  classic: "Classic & elegant",
+  playful: "Fun & playful",
+  unsure: "Not sure, needs guidance",
+};
+const MAINTENANCE_LABELS = {
+  diy: "Will handle updates themselves",
+  ongoing: "Wants ongoing maintenance support",
+  unsure: "Not sure yet",
+};
+
+function fmt(value) {
+  if (Array.isArray(value)) return value.length ? value.join(", ") : "—";
+  return value || "—";
 }
 
 function renderReview() {
@@ -230,17 +293,29 @@ function renderReview() {
   const rows = [
     ["Business name", answers.businessName],
     ["Category", CATEGORY_LABELS[answers.category] || answers.category],
+    ["Location", fmt(answers.location)],
+    ["Years in business", YEARS_LABELS[answers.yearsInBusiness] || fmt(answers.yearsInBusiness)],
   ];
   (FOLLOWUPS[state.category] || []).forEach((q) => {
-    rows.push([q.label, answers[q.id] || "—"]);
+    rows.push([q.label, fmt(answers[q.id])]);
   });
   rows.push(
     ["Services", answers.servicesText],
-    ["Typical customers", answers.targetCustomers || "—"],
+    ["What makes them different", fmt(answers.uniqueValue)],
+    ["Typical customers", fmt(answers.targetCustomers)],
+    ["Sites they like", fmt(answers.competitorSites)],
     ["Existing website", answers.existingWebsite === "yes" ? "Yes" : "No"],
-    ["Domain", answers.domain || "—"],
-    ["Timeline", answers.timeline],
-    ["Budget", answers.budget]
+    ["Domain", fmt(answers.domain)],
+    ["Pages wanted", fmt(answers.pages)],
+    ["Content readiness", CONTENT_READY_LABELS[answers.contentReady] || fmt(answers.contentReady)],
+    ["Social links", fmt(answers.socialLinks)],
+    ["Style preference", STYLE_LABELS[answers.stylePreference] || fmt(answers.stylePreference)],
+    ["Brand colors", fmt(answers.brandColors)],
+    ["Must-have features", fmt(answers.mustHaveFeatures)],
+    ["Timeline", TIMELINE_LABELS[answers.timeline] || fmt(answers.timeline)],
+    ["Budget", BUDGET_LABELS[answers.budget] || fmt(answers.budget)],
+    ["Post-launch support", MAINTENANCE_LABELS[answers.maintenancePlan] || fmt(answers.maintenancePlan)],
+    ["Referral source", fmt(answers.referralSource)]
   );
 
   const imagesHtml = `
@@ -360,7 +435,10 @@ function prefill(submission) {
     const field = els.wizardForm.elements[key];
     if (!field) return;
     if (field instanceof RadioNodeList) {
-      Array.from(field).forEach((el) => { el.checked = el.value === value; });
+      const values = Array.isArray(value) ? value : [value];
+      Array.from(field).forEach((el) => {
+        el.checked = el.type === "checkbox" ? values.includes(el.value) : el.value === value;
+      });
     } else {
       field.value = value;
     }

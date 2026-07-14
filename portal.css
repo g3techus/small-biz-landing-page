@@ -134,6 +134,22 @@
 }
 .yesno-group input { width: auto; margin: 0; }
 
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--text);
+}
+.checkbox-group input { width: auto; margin: 0; }
+
 .upload-field { margin-bottom: 24px; }
 .upload-label {
   display: block;

@@ -81,6 +81,17 @@
               <option value="other">Other</option>
             </select>
           </label>
+          <label>Where is your business located?
+            <input type="text" name="location" placeholder="e.g. Austin, TX (or 'online only')">
+          </label>
+          <label>How long have you been in business?
+            <select name="yearsInBusiness">
+              <option value="new">Just starting out</option>
+              <option value="1-2years">1-2 years</option>
+              <option value="3-5years">3-5 years</option>
+              <option value="5plus">5+ years</option>
+            </select>
+          </label>
         </div>
 
         <div class="wizard-step" id="step-followup">
@@ -88,14 +99,24 @@
           <div id="followupFields"></div>
         </div>
 
-        <div class="wizard-step" id="step-general">
-          <h2>A bit more detail</h2>
+        <div class="wizard-step" id="step-audience">
+          <h2>Services &amp; audience</h2>
           <label>What services does your business provide?
             <textarea name="servicesText" rows="3" required placeholder="e.g. Coffee, pastries, catering for local events"></textarea>
+          </label>
+          <label>What makes your business different from competitors?
+            <textarea name="uniqueValue" rows="2" placeholder="e.g. Only shop in town using locally roasted beans"></textarea>
           </label>
           <label>Who are your typical customers?
             <input type="text" name="targetCustomers" placeholder="e.g. Local families, remote workers">
           </label>
+          <label>Any websites you like the look of? (yours, competitors, or just inspiration) (optional)
+            <input type="text" name="competitorSites" placeholder="e.g. sitename.com">
+          </label>
+        </div>
+
+        <div class="wizard-step" id="step-content">
+          <h2>Content &amp; features</h2>
           <label>Do you already have a website?
             <select name="existingWebsite">
               <option value="no">No</option>
@@ -105,6 +126,51 @@
           <label>Domain name in mind? (optional)
             <input type="text" name="domain" placeholder="e.g. sunrisecafe.com">
           </label>
+          <label>Which pages do you think you'll need?
+            <span class="checkbox-group">
+              <label><input type="checkbox" name="pages" value="Home"> Home</label>
+              <label><input type="checkbox" name="pages" value="About"> About</label>
+              <label><input type="checkbox" name="pages" value="Services"> Services</label>
+              <label><input type="checkbox" name="pages" value="Gallery/Portfolio"> Gallery / Portfolio</label>
+              <label><input type="checkbox" name="pages" value="Blog"> Blog</label>
+              <label><input type="checkbox" name="pages" value="Online Store"> Online Store</label>
+              <label><input type="checkbox" name="pages" value="Booking/Scheduling"> Booking / Scheduling</label>
+              <label><input type="checkbox" name="pages" value="Contact"> Contact</label>
+            </span>
+          </label>
+          <label>How ready is your content?
+            <select name="contentReady">
+              <option value="ready">I have my logo, photos, and text ready</option>
+              <option value="partial">I have some content, need help with the rest</option>
+              <option value="none">I need help creating everything (photos, text, etc.)</option>
+            </select>
+          </label>
+          <label>Social media links (optional)
+            <input type="text" name="socialLinks" placeholder="e.g. instagram.com/yourbusiness">
+          </label>
+        </div>
+
+        <div class="wizard-step" id="step-design">
+          <h2>Design preferences</h2>
+          <label>What style feels right for your brand?
+            <select name="stylePreference">
+              <option value="modern">Modern &amp; minimal</option>
+              <option value="bold">Bold &amp; colorful</option>
+              <option value="classic">Classic &amp; elegant</option>
+              <option value="playful">Fun &amp; playful</option>
+              <option value="unsure">Not sure, need guidance</option>
+            </select>
+          </label>
+          <label>Do you have brand colors? (optional)
+            <input type="text" name="brandColors" placeholder="e.g. navy and gold, or hex codes">
+          </label>
+          <label>Any must-have features? (optional)
+            <textarea name="mustHaveFeatures" rows="2" placeholder="e.g. live chat, testimonials section, newsletter signup"></textarea>
+          </label>
+        </div>
+
+        <div class="wizard-step" id="step-logistics">
+          <h2>Timeline &amp; budget</h2>
           <label>What's your timeline?
             <select name="timeline">
               <option value="asap">As soon as possible</option>
@@ -115,11 +181,22 @@
           </label>
           <label>What's your budget range?
             <select name="budget">
-              <option value="under1000">Under $1,000</option>
-              <option value="1000-2500">$1,000 - $2,500</option>
-              <option value="2500-5000">$2,500 - $5,000</option>
+              <option value="under300">Under $300</option>
+              <option value="300-500">$300 - $500</option>
+              <option value="500-1000">$500 - $1,000</option>
+              <option value="1000plus">$1,000+</option>
               <option value="unsure">Not sure yet</option>
             </select>
+          </label>
+          <label>After launch, what kind of support do you want?
+            <select name="maintenancePlan">
+              <option value="diy">Just build it, I'll handle updates myself</option>
+              <option value="ongoing">I'd like ongoing maintenance/updates support</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </label>
+          <label>How did you hear about us? (optional)
+            <input type="text" name="referralSource" placeholder="e.g. friend, Google, Instagram">
           </label>
         </div>
 
