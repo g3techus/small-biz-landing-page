@@ -318,6 +318,59 @@ section h2 {
 .card h3 { color: var(--navy); font-size: 1.1rem; }
 .card p { margin: 0; }
 
+/* Portfolio */
+.portfolio { padding: 72px 0; }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.portfolio-card {
+  display: block;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.portfolio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(24, 24, 27, 0.14);
+}
+.portfolio-preview {
+  overflow: hidden;
+  border-bottom: 1px solid var(--divider);
+}
+.portfolio-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+.portfolio-card:hover .portfolio-preview img { transform: scale(1.06); }
+.portfolio-info {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.portfolio-info h3 {
+  color: var(--navy);
+  font-size: 1.05rem;
+  margin: 0;
+}
+.portfolio-link {
+  color: var(--accent-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.portfolio-link span { display: inline-block; transition: transform 0.2s ease; }
+.portfolio-card:hover .portfolio-link span { transform: translateX(4px); }
+
 /* Process */
 .process { padding: 72px 0; background: var(--surface); }
 .steps {
