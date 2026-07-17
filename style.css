@@ -1,38 +1,38 @@
 :root {
-  --navy: #10233e;
-  --brand-navy: #10233e;
-  --brand-navy-light: #1a3559;
-  --teal: #0fa3a3;
-  --teal-dark: #0b7f7f;
-  --accent-text: #0b7f7f;
-  --bg: #f7f9fb;
-  --text: #1c2b3a;
-  --muted: #5b6b7c;
+  --navy: #18181b;
+  --brand-navy: #09090b;
+  --brand-navy-light: #27272a;
+  --teal: #52525b;
+  --teal-dark: #3f3f46;
+  --accent-text: #52525b;
+  --bg: #f4f4f5;
+  --text: #18181b;
+  --muted: #71717a;
   --white: #ffffff;
   --surface: #ffffff;
   --surface-rgb: 255, 255, 255;
-  --border: #d7dee5;
-  --divider: rgba(16, 35, 62, 0.06);
-  --track: rgba(16, 35, 62, 0.1);
+  --border: #d4d4d8;
+  --divider: rgba(24, 24, 27, 0.06);
+  --track: rgba(24, 24, 27, 0.1);
   --radius: 12px;
-  --shadow: 0 8px 24px rgba(16, 35, 62, 0.08);
+  --shadow: 0 8px 24px rgba(24, 24, 27, 0.08);
   color-scheme: light;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 :root[data-theme="dark"] {
-  --navy: #e7edf6;
-  --teal: #14b8b8;
-  --accent-text: #5eead4;
-  --bg: #0a0f1a;
-  --text: #dbe4f0;
-  --muted: #93a3b8;
-  --surface: #141d2e;
-  --surface-rgb: 20, 29, 46;
-  --border: #2a3a52;
+  --navy: #f4f4f5;
+  --teal: #a1a1aa;
+  --accent-text: #d4d4d8;
+  --bg: #09090b;
+  --text: #e4e4e7;
+  --muted: #a1a1aa;
+  --surface: #18181b;
+  --surface-rgb: 24, 24, 27;
+  --border: #3f3f46;
   --divider: rgba(255, 255, 255, 0.08);
   --track: rgba(255, 255, 255, 0.12);
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
   color-scheme: dark;
 }
 
@@ -148,7 +148,7 @@ a { text-decoration: none; color: inherit; }
 .btn-primary {
   background: var(--teal);
   color: var(--white);
-  box-shadow: 0 4px 14px rgba(15, 163, 163, 0.35);
+  box-shadow: 0 4px 14px rgba(82, 82, 91, 0.35);
 }
 .btn-primary:hover { background: var(--teal-dark); }
 .btn-ghost {
@@ -165,7 +165,7 @@ a { text-decoration: none; color: inherit; }
 .hero {
   padding: 96px 0 64px;
   text-align: center;
-  background: radial-gradient(circle at 50% -10%, rgba(15,163,163,0.12), transparent 60%);
+  background: radial-gradient(circle at 50% -10%, rgba(82,82,91,0.12), transparent 60%);
 }
 .hero-inner { max-width: 760px; margin: 0 auto; }
 .hero h1 {
