@@ -38,6 +38,51 @@
 
 * { box-sizing: border-box; }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pulseOpacity {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes toggleSpin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  .cards .reveal:nth-child(2), .steps .reveal:nth-child(2), .price-cards .reveal:nth-child(2) { transition-delay: 90ms; }
+  .cards .reveal:nth-child(3), .steps .reveal:nth-child(3), .price-cards .reveal:nth-child(3) { transition-delay: 180ms; }
+  .cards .reveal:nth-child(4) { transition-delay: 270ms; }
+  .cards .reveal:nth-child(5) { transition-delay: 360ms; }
+  .cards .reveal:nth-child(6) { transition-delay: 450ms; }
+
+  .hero h1, .hero-sub, .hero-actions, .hero-trust {
+    animation: fadeInUp 0.7s ease both;
+  }
+  .hero-sub { animation-delay: 0.1s; }
+  .hero-actions { animation-delay: 0.2s; }
+  .hero-trust { animation-delay: 0.3s; }
+
+  .form-status:not([hidden]) { animation: fadeInUp 0.4s ease; }
+  .theme-toggle.spin { animation: toggleSpin 0.5s ease; }
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -89,6 +134,11 @@ a { text-decoration: none; color: inherit; }
   width: auto;
   border-radius: 6px;
   flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.logo:hover .logo-mark {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 0 0 3px rgba(0, 70, 232, 0.25);
 }
 .logo span { color: var(--accent-text); }
 
@@ -99,11 +149,24 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
 }
 .nav a {
+  position: relative;
   color: var(--text);
   font-weight: 500;
   font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent-text);
+  transition: right 0.25s ease;
 }
 .nav a:hover { color: var(--accent-text); }
+.nav a:hover::after { right: 0; }
 
 .nav-toggle {
   display: none;
@@ -112,18 +175,6 @@ a { text-decoration: none; color: inherit; }
   font-size: 1.4rem;
   cursor: pointer;
   color: var(--navy);
-}
-
-.nav.mobile-open {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  padding: 16px 24px;
-  box-shadow: var(--shadow);
 }
 
 .theme-toggle {
@@ -154,6 +205,7 @@ a { text-decoration: none; color: inherit; }
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(0.96); }
 .btn-primary {
   background: var(--teal);
   color: var(--white);
@@ -250,8 +302,19 @@ section h2 {
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.card-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(24, 24, 27, 0.14);
+}
+.card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.card:hover .card-icon { transform: scale(1.15) rotate(-6deg); }
 .card h3 { color: var(--navy); font-size: 1.1rem; }
 .card p { margin: 0; }
 
@@ -276,7 +339,9 @@ section h2 {
   justify-content: center;
   font-weight: 700;
   margin: 0 auto 16px;
+  transition: transform 0.3s ease;
 }
+.step:hover .step-number { transform: scale(1.12); }
 .step h3 { color: var(--navy); font-size: 1.05rem; }
 .step p { margin: 0; }
 
@@ -297,11 +362,17 @@ section h2 {
   text-align: center;
   position: relative;
   border: 2px solid transparent;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.price-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(24, 24, 27, 0.14);
 }
 .price-card.featured {
   border-color: var(--teal);
   transform: scale(1.03);
 }
+.price-card.featured:hover { transform: scale(1.03) translateY(-6px); }
 .badge {
   position: absolute;
   top: -14px;
@@ -402,7 +473,26 @@ section h2 {
 }
 
 @media (max-width: 720px) {
-  .nav { display: none; }
+  .nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    padding: 0 24px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+  }
+  .nav.mobile-open {
+    max-height: 480px;
+    opacity: 1;
+    padding: 16px 24px;
+  }
   .nav-toggle { display: block; }
   .nav-cta { display: none; }
   .form-row { flex-direction: column; }

@@ -13,5 +13,8 @@
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
     btn.textContent = icon();
+    btn.classList.remove("spin");
+    void btn.offsetWidth;
+    btn.classList.add("spin");
   });
 })();
