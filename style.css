@@ -2,9 +2,9 @@
   --navy: #18181b;
   --brand-navy: #09090b;
   --brand-navy-light: #27272a;
-  --teal: #52525b;
-  --teal-dark: #3f3f46;
-  --accent-text: #52525b;
+  --teal: #0046e8;
+  --teal-dark: #0036b3;
+  --accent-text: #0046e8;
   --bg: #f4f4f5;
   --text: #18181b;
   --muted: #71717a;
@@ -22,8 +22,8 @@
 
 :root[data-theme="dark"] {
   --navy: #f4f4f5;
-  --teal: #a1a1aa;
-  --accent-text: #d4d4d8;
+  --teal: #3d6bff;
+  --accent-text: #6690ff;
   --bg: #09090b;
   --text: #e4e4e7;
   --muted: #a1a1aa;
@@ -76,10 +76,19 @@ a { text-decoration: none; color: inherit; }
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 800;
   font-size: 1.15rem;
   color: var(--navy);
   white-space: nowrap;
+}
+.logo-mark {
+  height: 32px;
+  width: auto;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 .logo span { color: var(--accent-text); }
 
@@ -148,7 +157,7 @@ a { text-decoration: none; color: inherit; }
 .btn-primary {
   background: var(--teal);
   color: var(--white);
-  box-shadow: 0 4px 14px rgba(82, 82, 91, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 70, 232, 0.35);
 }
 .btn-primary:hover { background: var(--teal-dark); }
 .btn-ghost {
@@ -165,7 +174,7 @@ a { text-decoration: none; color: inherit; }
 .hero {
   padding: 96px 0 64px;
   text-align: center;
-  background: radial-gradient(circle at 50% -10%, rgba(82,82,91,0.12), transparent 60%);
+  background: radial-gradient(circle at 50% -10%, rgba(0,70,232,0.12), transparent 60%);
 }
 .hero-inner { max-width: 760px; margin: 0 auto; }
 .hero h1 {
